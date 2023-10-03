@@ -1,0 +1,79 @@
+
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header head">
+      Employee Crud
+    </div>
+
+    <div class="card-body">
+      <div class="row">
+
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              create
+            </div>
+            <div class="card-body">
+              <form [formGroup]="Employeeformgroup" (ngSubmit)="Onsubmit()">
+                <div class="row">
+                  <div class="col-sm-12 mb-3">
+                    <label  class="form-label">Name</label>
+                    <input type="text" formControlName="name"  class="form-control">
+                  </div>
+                  <div class="col-sm-12 mb-3">
+                    <label>MobileNo</label>
+                    <input type="text" formControlName="mobileNo" class="form-control" required>
+                  </div>
+                  <div class="col-sm-12 mb-3">
+                     <label>Email ID</label>
+                    <input type="email" formControlName="emailID" class="form-control"> 
+                  </div>
+                  <div class="col-sm-12 mb-3">
+                    <button class="btn btn-success" type="submit">create</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <!-- npm i ng2-search-filter (search filter is used)-->
+          <div *ngIf =" Employeeary.length == 0" class="alert alert-info">
+            Employee not found
+          </div>
+          <div *ngIf="Employeeary.length>0">
+            <div class="search">
+            <input type="text" style="width: 250px;" class="form-control" name="search" [(ngModel)]="searchText" placeholder="Search"/>
+          </div><br>  
+          <table class="table table-striped" id="table-data">
+            <thead>
+              <tr>
+                <td>Name</td>
+                <td>Mobile</td>
+                <td>Email ID</td>
+                <td>Action</td>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let emp of Employeeary | filter:searchText">
+              <td>{{emp.name}}</td>
+              <td>{{emp.mobileNo}}</td>
+              <td>{{emp.emailID}}</td>
+              <td>
+                <button (click)="Fillform(emp)" class="btn btnr btn-success">Edit</button>
+                <button (click)="DeleteEmp(emp.id)" class="btn btn-danger">Delete</button>
+              </td>
+            </tr>
+            </tbody>
+            <button (click)="exportexcel()" class="btn btn-link">Export to Excel</button>
+          </table>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
